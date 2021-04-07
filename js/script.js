@@ -18,11 +18,21 @@
 Проверить, чтобы все работало без ошибок в консоли */
 "use strict";
 
-const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', ''); 
+let numberOfFilms; 
 /* Метод prompt() выводит на экран модальное окно приглашения на ввод данных пользователем.
 Синтаксис метода: var имя_переменной = prompt(msg, defaultText); */
 //чтоб задать вопрос пользователю используем promt(мы предпологаем что будем работать
 //с цифрами поэтому ставим унарный плюсик и это уже будет не строка а число).
+
+function start() {
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', ''); 
+
+    while(numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+    }
+}
+
+start();
 
 const personalMovieDB = {
     count: numberOfFilms,
@@ -52,30 +62,51 @@ str.length - и получить её длину)
 "Вы киноман". А если не подошло ни к одному варианту - "Произошла ошибка"
 4) Потренироваться и переписать цикл еще двумя способами*/
 
-for (let i = 0; i < 2; i++) {
-    const a = prompt('Один из последних просмотренных фильмов?', ''),
-          b = prompt('На сколько оцените его?', '');
-// для 2 пункта задания используем условия
-    if ( a != null && b != null && a != '' && b != '' && a.length < 50 ) {
-        personalMovieDB.movies[a] = b;
-        console.log('done');
-    } else {
-        console.log('error');
-        //если условие не выполнено вернемся на одно повторение обратно
-        i--;
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++) {
+        const a = prompt('Один из последних просмотренных фильмов?', ''),
+              b = prompt('На сколько оцените его?', '');
+    // для 2 пункта задания используем условия
+        if ( a != null && b != null && a != '' && b != '' && a.length < 50 ) {
+            personalMovieDB.movies[a] = b;
+            console.log('done');
+        } else {
+            console.log('error');
+            //если условие не выполнено вернемся на одно повторение обратно
+            i--;
+        }
+        
     }
-    
 }
 
-if (personalMovieDB.count < 10) {
-    console.log("Просмотрено довольно мало фильмов");
-} else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) {
-    console.log("Вы классический зритель");
-} else if (personalMovieDB.count > 30) {
-    console.log("Вы киноман");
-} else {
-    console.log("Произошла ошибка");
+rememberMyFilms();
+
+
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        console.log("Просмотрено довольно мало фильмов");
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) {
+        console.log("Вы классический зритель");
+    } else if (personalMovieDB.count > 30) {
+        console.log("Вы киноман");
+    } else {
+        console.log("Произошла ошибка");
+    }
 }
-console.log(personalMovieDB);
 
+detectPersonalLevel();
 
+function showMyDB (hidden) {
+    if (!hidden) {
+        console.log(personalMovieDB);
+    }
+}
+showMyDB(personalMovieDB.privat);
+
+function writeYourGenres() {
+    for (let i = 1; i <= 3; i++) {
+        personalMovieDB.genres[i - 1] = prompt(`Ваш любимы жанр под номером ${i}`);
+    }
+}
+
+writeYourGenres();
