@@ -1,3 +1,4 @@
+"use strict";
 /* Задание на урок:
 1) Создать переменную numberOfFilms и в неё поместить ответ от пользователя на вопрос:
 'Сколько фильмов вы уже посмотрели?'
@@ -16,30 +17,82 @@
         'logan': '8.1'
     }
 Проверить, чтобы все работало без ошибок в консоли */
-"use strict";
 
-let numberOfFilms; 
 /* Метод prompt() выводит на экран модальное окно приглашения на ввод данных пользователем.
 Синтаксис метода: var имя_переменной = prompt(msg, defaultText); */
 //чтоб задать вопрос пользователю используем promt(мы предпологаем что будем работать
 //с цифрами поэтому ставим унарный плюсик и это уже будет не строка а число).
 
-function start() {
-    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', ''); 
-
-    while(numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
-    }
-}
-
-start();
 
 const personalMovieDB = {
-    count: numberOfFilms,
+    count: 0,
     movies: {},
     actors: {},
     genres: [],
-    privat: false
+    privat: false,
+    start: function() {
+        personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?', ''); 
+    
+        while(personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count)) {
+            personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?', '');
+        }
+    },
+    rememberMyFilms: function() {
+        for (let i = 0; i < 2; i++) {
+            const a = prompt('Один из последних просмотренных фильмов?', ''),
+                  b = prompt('На сколько оцените его?', '');
+        // для 2 пункта задания используем условия
+            if ( a != null && b != null && a != '' && b != '' && a.length < 50 ) {
+                personalMovieDB.movies[a] = b;
+                console.log('done');
+            } else {
+                console.log('error');
+                //если условие не выполнено вернемся на одно повторение обратно
+                i--;
+            }
+            
+        }
+    },
+    detectPersonalLevel: function() {
+        if (personalMovieDB.count < 10) {
+            console.log("Просмотрено довольно мало фильмов");
+        } else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) {
+            console.log("Вы классический зритель");
+        } else if (personalMovieDB.count > 30) {
+            console.log("Вы киноман");
+        } else {
+            console.log("Произошла ошибка");
+        }
+    },
+    showMyDB: function(hidden) {
+        if (!hidden) {
+            console.log(personalMovieDB);
+        }
+    },
+    toggleVisibleMyDB: function() {
+        if (personalMovieDB.privat) {
+            personalMovieDB.privat = false;
+        } else {
+            personalMovieDB.privat = true;
+        }
+    },
+    writeYourGenres: function() {
+        for (let i = 1; i <= 3; i++) {
+            let genre = prompt(`Ваш любимы жанр под номером ${i}`);
+
+            if (genre == '' || genre == null) {
+                console.log('Вы ввели что-то не правильно');
+                i--;
+            } else {
+                personalMovieDB.genres[i - 1] = genre;
+            }      
+        }
+
+        personalMovieDB.genres.forEach((item, i) => {
+            console.log(`Любимый жанр ${i + 1} - это ${item}`);
+        });
+    }
+    
 };
 //ниже автоматизируем данный процесс, поэтому эту часть за ненадобностью комментируем.
 // const a = prompt('Один из последних просмотренных фильмов?', ''),
@@ -62,51 +115,14 @@ str.length - и получить её длину)
 "Вы киноман". А если не подошло ни к одному варианту - "Произошла ошибка"
 4) Потренироваться и переписать цикл еще двумя способами*/
 
-function rememberMyFilms() {
-    for (let i = 0; i < 2; i++) {
-        const a = prompt('Один из последних просмотренных фильмов?', ''),
-              b = prompt('На сколько оцените его?', '');
-    // для 2 пункта задания используем условия
-        if ( a != null && b != null && a != '' && b != '' && a.length < 50 ) {
-            personalMovieDB.movies[a] = b;
-            console.log('done');
-        } else {
-            console.log('error');
-            //если условие не выполнено вернемся на одно повторение обратно
-            i--;
-        }
-        
-    }
-}
 
-rememberMyFilms();
-
-
-function detectPersonalLevel() {
-    if (personalMovieDB.count < 10) {
-        console.log("Просмотрено довольно мало фильмов");
-    } else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) {
-        console.log("Вы классический зритель");
-    } else if (personalMovieDB.count > 30) {
-        console.log("Вы киноман");
-    } else {
-        console.log("Произошла ошибка");
-    }
-}
-
-detectPersonalLevel();
-
-function showMyDB (hidden) {
-    if (!hidden) {
-        console.log(personalMovieDB);
-    }
-}
-showMyDB(personalMovieDB.privat);
-
-function writeYourGenres() {
-    for (let i = 1; i <= 3; i++) {
-        personalMovieDB.genres[i - 1] = prompt(`Ваш любимы жанр под номером ${i}`);
-    }
-}
-
-writeYourGenres();
+/* Задание на урок:
+1) У нас уже есть рабочее приложение, состоящее из отдельных функций. Представьте, что
+перед вами стоит задача переписать его так, чтобы все функции стали методами объекта personalMovieDB
+Такое случается в реальных продуктах при смене технологий или подхода к архитектуре программы
+2) Создать метод toggleVisibleMyDB, который при вызове будет проверять свойство privat. Если оно false - он
+переключает его в true, если true - переключает в false. Протестировать вместе с showMyDB.
+3) В методе writeYourGenres запретить пользователю нажать кнопку "отмена" или оставлять пустую строку. 
+Если он это сделал - возвращать его к этому же вопросу. После того, как все жанры введены - 
+при помощи метода forEach вывести в консоль сообщения в таком виде:
+"Любимый жанр #(номер по порядку, начиная с 1) - это (название из массива)"*/

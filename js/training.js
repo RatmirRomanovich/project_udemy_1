@@ -3,6 +3,15 @@
 //todo Тема - Циклы
 //todo Тема - Функции, стрелочные ф-ии
 //todo Тема - Методы и свойства строк и чисел
+//todo Тема - callback Функции
+//todo Тема - объекты, деструктуризация объектов (es6)
+//todo Тема - Массивы и псевдомассивы (21, )
+//todo Тема - Передача по ссылке или по значению. Spread оператор (ES6 - ES9)
+//todo Тема - Основы ООП, прототипно ориентированное наследование (23, )
+//todo Тема - debug (25, )
+//todo Тема - Динамическая типизация (26, )
+//todo Тема - Получение элементов со страницы (28, )
+//todo Тема - Действия с эелементами на странице (29, )
 //======================================================================================================================================
 
 
@@ -185,3 +194,400 @@ logger();
 // свойства - это вспомогательные значения
 // Строки
 // Числа
+//todo Тема - callback Функции
+// если ф-ции в коде идут одна за другой, еще не значит что они выполняются в том же порядке
+// callback Функция - это ф-я которая должна быть выполнена после того как другая функция завершила свое выполнение.
+// function learnJS(lang, callback) {
+// 	console.log(`Я учу: ${lang}`);
+// 	callback();
+// }
+
+// learnJS('JavaScript', function(){
+// 	console.log('callback');
+// });
+
+//todo Тема - объекты, деструктуризация объектов (es6)
+// объекты мохут сохранять в себе любой тип данных
+// поддерживают вложенность
+// для перебора используем for in
+// есть встроенные методы и свойства
+// в объект можем записывать функции и таким образом создавать свои методы.
+// деструктуризация объектов пришла со стандартом - (ES6)
+// const options = {
+// 	name: 'test',
+// 	width: 1024,
+// 	height: 1024,
+// 	colors: {
+// 		border: 'black',
+// 		bg: 'red'
+// 	},
+	// прям в объекте можно создавать методы
+// 	makeTest: function() {
+// 		console.log('tEst');
+// 	}
+// };
+// options.makeTest();
+// удалить пару из объекта
+// delete options.name;
+// console.log(options);
+
+// перебрать все свойства объекта
+// for (let key in options) {
+
+// 	if (typeof(options[key]) === 'object') {
+// 		for (let i in options[key]) {
+// 			console.log(`Свойство ${key} имеет значение ${options[key][i]}`);
+// 		}
+// 	} else {
+// 		console.log(`Свойство ${key} имеет значение ${options[key]}`);
+// 	}
+// }
+
+// прием счетчика
+// let counter = 0;
+
+// for (let key in options) {
+
+// 	if (typeof(options[key]) === 'object') {
+// 		for (let i in options[key]) {
+// 			console.log(`Свойство ${key} имеет значение ${options[key][i]}`);
+// 			counter++;
+// 		}
+// 	} else {
+// 		console.log(`Свойство ${key} имеет значение ${options[key]}`);
+// 		counter++;
+// 	}
+// }
+
+// console.log(counter);
+
+// метод - ключи нашего объекта
+// console.log(Object.keys(options));
+
+// получить кол-во элементов
+// console.log(Object.keys(options).length);
+
+// деструктуризация объектов пришла со стандартом - (ES6) (что хотим вытащить = откуда хотим вытащить)
+
+// const {border, bg} = options.colors;
+// console.log(border);
+// console.log(bg);
+
+//todo Тема - Массивы и псевдомассивы
+// const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// метод удаляющий последний эл-ент из массива
+// arr.pop();
+
+// метод добавляющий последний эл-ент к массиву
+// arr.push(10);
+// console.log(arr);
+
+// перебор эл-ов массива циклом for
+// for (i = 0; i < arr.length; i++) {
+// 	console.log(arr[i]);
+// }
+
+// перебор эл-ов массива методом for of
+// for (let massive of arr) {
+// 	console.log(massive);
+// }
+// for of не очень удобен за исключением тех случаев когда есть необходимость остановить цикл
+// так как он принимает такие ключевые слова как break и continue.
+
+// метод forEach
+// arr.forEach(function(item, i ,arr){
+// 	console.log(`${i}: ${item} элементы из массива ${arr}`)
+// });
+
+// метод arr.split(); превращает строку в массив.
+// const str = promt("", "");
+// const products = str.split(", ");
+// console.log(products);
+
+// метод arr.join(); превращает массив в строку.
+// console.log(products.join('; '));
+
+// метод arr.stor() сортировка массива, если без функции сравнения то сортирует как строки.
+// arr.sort();
+// console.log(arr);
+
+// arr.sort(compareNum);
+// console.log(arr);
+// function compareNum(a, b) {
+// 	return a - b;
+// }
+
+//todo Тема - Передача по ссылке или по значению. Spread оператор (ES6 - ES9)
+// статья про клонирование (- https://medium.com/@stasonmars/%D0%BA%D0%BE%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2-%D0%B2-javascript-d25c261a7aff -)
+// Object.assign(); (- https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Object/assign -)
+// Spread operator   (- https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Operators/Spread_syntax -)
+
+// Передача по значению работает с примитивами (строки, числа, лог-ие значения (редедаются по значению))
+
+// let a = 5,
+// 	 b = a;
+
+// 	 b = b + 5;
+
+// console.log(b, a);
+
+// Изменияя что-то внутри копии мы модифицируем наш изначальный объект так как происходит
+// передача по ссылке.(при работе с объектами передается не значение объекта а ссылка на сам объект)
+// const obj = {
+// 	a: 5,
+// 	b: 1
+// };
+
+// const copy = obj; //ссылка на сам объект
+
+// copy.a = 10; //значит моди-уя нашу копию мы изменяем сам объект, так как работаем не с копией а с ссылкой на него.
+
+// console.log(obj, copy);
+
+// ЧТобы создать копию объекта и модифицируя его не влиять на копируем объект его нужно клонировать
+// Способ 1 - с помощью функции (это будет поверхностная копия, которая не повлияет на изменения объекта внутри объекта, тоесть там снова будет передаваться все ссылочно)
+// function copy(mainObj) { //функция создать новый объект перебирая с помощью цикла свойства и значения старого объекта
+// 	let objCopy = {}; //новый объект
+	
+// 	let key;
+// 	for (key in mainObj) { // у нас есть ключи внутри объекта который передается в функцию
+// 		objCopy[key] = mainObj[key]; // делаем копию из главного объекта
+// 	}
+
+
+// 	return(objCopy);
+// }
+
+// const numbers = {
+// 	a: 2,
+// 	b: 5,
+// 	c: {
+// 		x: 7,
+// 		y:4
+// 	}
+// };
+
+// const newNumbers = copy(numbers); // пользуемся функцией которая примет объект numbers и вернет новый который уже будет являться его копией.
+// newNumbers.a = 11;
+// newNumbers.c.x = 11;
+
+// console.log(newNumbers);
+// console.log(numbers);
+
+// способ объединить несколько объектов  assign при этом создается независимая копия объекта (правда вложенная структура также зависима свойство c например)
+// const numbers = {
+// 	a: 2,
+// 	b: 5,
+// 	c: {
+// 		x: 7,
+// 		y:4
+// 	}
+// };
+
+// const add = {
+	// d: 22,
+	// e: 43
+// };
+// первым передаем тот объект в который хотим поместить
+
+// console.log(Object.assign(numbers, add));
+// создаем простой клон объекта
+
+// const add = {
+// 	d: 22,
+// 	e: 43
+// };
+
+// const clone = Object.assign({}, add);
+
+// clone.d = 155;
+
+// console.log(add);
+// console.log(clone);
+
+// создаем клон массива
+// const oldArray = ['a', 'b', 'c'];
+// const newArray = oldArray.slice();
+
+// newArray[0] = 'new value element';
+
+// console.log(oldArray, newArray);
+
+
+// 4 способ создать поверхностную копию использовать апператор разварота
+// спред оператор
+
+// const video = ['youtube', 'vimeo', 'rutube'],
+		// blogs = ['wordpress', 'livejournal', 'blogger'],
+		// используем спред создаем новый массив с новыми данные и копиями нужных массивов
+		// internet = [...video, ...blogs, 'vk', 'facebook'];
+
+		// console.log(internet);
+		
+// еще вариант спреда
+// function spread(a, b, c) {
+// 	console.log(a);
+// 	console.log(b);
+// 	console.log(c);
+// };
+
+// const number = [11, 22, 33];
+
+// spread(...number);
+
+// спреад с объектами
+// const obj = {
+// 	one: 1,
+// 	two: 2
+// };
+
+// const copyObj = {...obj};
+
+// copyObj.one = 5;
+
+// console.log(obj);
+// console.log(copyObj);
+
+
+//todo Тема - Основы ООП, прототипно ориентированное наследование (23, ) - ООП это наука о том как делать правильную архитектуру. JS - прототипоно ориентированный язык пр-ия.
+// наследование без _proto_(proto устарел) (- https://javascript.info/prototype-methods -)
+// const soldier = {
+// 	health: 400,
+// 	armor: 300,
+// 	sayHello: function () {
+// 		console.log('Hello');
+// 	}
+// };
+
+// const jon = {
+// 	health: 100
+// };
+// так можно сделать если объект уже существует, но лучше делать заранее при создании
+// Object.setPrototypeOf(jon, soldier); //установили прототип для джона от солдата
+// jon.sayHello();
+
+// заранее при создании
+// создаем новый объект который будет прототипно наследоваться от soldier
+// const jon = Object.create(soldier);
+
+// jon.sayHello();
+
+
+
+//todo Тема - Динамическая типизация  
+// возможность одного типа данных превращаться в другой
+// конкатенация сложение строки с чем либо получим строку 
+// console.log(typeof(5 + 'afad'));
+
+//Унарный плюс из строки в число
+// console.log(typeof(+'5')); 
+
+// to boolean в  булиновые значения 0, '', null, undefined, NaN;
+// let swit = null;
+// swit = 1;
+// console.log(typeof(swit));
+
+// && И запинается на лжи
+// || ИЛИ запинается на правде
+
+
+//todo Тема - Получение элементов со страницы (- https://habr.com/ru/post/336136/ информация о псевдо массивах-)
+// 1 по id
+const box = document.getElementById('box');
+
+// 2 по тегу 
+const btn = document.getElementsByTagName('button'); // тут мы получили не элемент, а псевдо массив всех тегов button, псевдо массиывы не имеют методов 
+
+const btn = document.getElementsByTagName('button')[1]; // получаем вторую кнопку
+// либо
+console.log(btn[1]);
+
+// 3 по классу 
+const btn = document.getElementsByClassName('button'); // работает также как и по имени тега получаем псевдо массив
+console.log(button[1]);
+
+// 4 по селектору
+const heart = document.querySelectorAll('.heart'); // лучше так получать тут есть уже метод foreach
+heart.forEach(item => {
+	console.log(item);
+});
+
+const heart = document.querySelector('.heart'); // только первый элемент получим
+
+
+//todo Тема - Действия с эелементами на странице 
+// чтобы понимать что мы можем сделать с тем или иным элементом на странице нужно рассмотреть его в качестве объекта
+const heart = document.querySelector('.heart');
+console.dir(heart);
+// работаем с инлайн стилями
+heart.style.backgroundColor = 'red'; 
+heart.style.width = '500px'; 
+// можно стили сразу записать пачкой
+heart.style.cssText	= 'background-color: red; width: 500px';
+// если хотим подставить переменную то ставим бэктики
+heart.style.cssText	= `background-color: red; width: ${num}px`;
+
+
+const btn = document.getElementsByTagName('button');
+// выберем какую именно кнопку меняем по индексу
+btn[1].style.borderRadius = '5%';
+
+
+// теперь рассмотрим ситуацию когда надо манипуляцию произвести над несколькими элементами из псевдо массива
+// это работает c document.querySelectorAll
+const heart = document.querySelectorAll('.heart');
+for (i = 0; i < heart.length; i++) {
+	heart[i].style.backgroundColor = 'red';
+}
+// но лучше использовать не цикл, а перебирающий элемент forEach c ним проще и короче
+heart.forEach(item => {
+	item.style.backgroundColor = 'red';
+});
+
+
+// элементы и целые блоки можно создавать на лету
+const block = document.createElement('div'); // на странице его нет пока, он создан только внутри js
+
+// текстовые узлы создаем без оболочки
+const text = document.createTextNode('какой либо текст');
+
+
+// для стилизации динамической лучше не инлайн стили использовать а добавлять или удалять css классы 
+// подвесим нашему созданому диву класс
+block.classList.add('black');
+
+// теперь добавим наш див на страницу, выберем ему родителя и в конец его добавим
+document.body.append(block);
+// устр вариант document.body.appendChild(block);
+// или засунем во врапер какой нить
+document.querySelector('.wrapper').append(block);
+// если wrapper например используется много раз то лучше вынести его в переменную
+wrapper = document.querySelector('.wrapper');
+
+// можем добавить в начало блока
+wrapper.prepend(block);
+
+// можем также использовать before, after для определения положения элемента
+const heart = document.querySelectorAll('.heart'); // достучались до эелемента
+heart[0].before(block);
+heart[0].after(block);
+
+// устр вариант  wrapper.insertBefore(div, heart[0]);
+// удаляем элемент со страницы
+
+heart[1].remove();
+// устр вариант wrapper.removeChild(heart[0]);
+
+// можем один элемент заменить другим, сначала указываем какой элемент надо заменить
+heart[0].replaceWith(btn[1]);
+
+
+// добавляем в блок html элементы
+block.innerHTML = "<h1>Заголовок какой нить</h1>"; 
+
+// для работы с текстом лучше использовать этот метод, а метод выше для работы со структурой
+block.textContent = "<h1>Заголовок какой нить</h1>"; 
+
+// вставить код перед элементом или после поможет insert
+
+block.insertAdjacentHTML('beforebegin', '<h1>Заголовок какой нить</h1>');
